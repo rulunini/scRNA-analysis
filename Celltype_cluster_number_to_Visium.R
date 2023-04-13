@@ -41,4 +41,4 @@ for (i in 1:length(my.visium.lst)){
 # < Save to RData > ----------
 
 my.path <- '/home/write_your_path'
-save(my.visium.lst, file = paste0(my.path, '/spatial_eachsample_seperated_celltype.RData'))
+save(my.visium.lst, file = paste0(my.path, '/spatial_eightsample_integration.RData'))
