@@ -6,7 +6,7 @@ library(Seurat)
 
 my.path <- 'write_your_path'
 
-# This is Load your visium dataset 
+# This is your visium dataset 
 load(paste0(my.path, 'spatial_eachsample_seperated.RData'))
 # This is .csv file that already created to identify enriched celltypes from divided clusters at visium 
 my.df <- read.csv(paste0(my.path, 'enrichment_signif_celltype.csv'))
