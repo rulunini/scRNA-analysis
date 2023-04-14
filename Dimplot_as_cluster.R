@@ -1,8 +1,15 @@
-# Visualize as barplot----------------------------------------------------------------------------------------------------
+# < Needed library > ----------
+library(Seurat)
 
-load('/home/sohee/analysis/data/HNSCC/mydata/mia/spatial_eightsample_integration.RData')
 
-# save(visium.int, file = '/home/sohee/analysis/data/HNSCC/mydata/mia/spatial_eightsample_integration.RData')
+# < Prepare your data > ----------
+
+my.path <- '/home/sohee/analysis/data/HNSCC/mydata/mia/' #'write_your_path'
+load(paste0(my.path, 'spatial_eightsample_integration.RData'))
+
+
+# < Visualize as barplot > ----------
+
 visium.int$site2 <- visium.int$site
 visium.int$site2 <- factor(visium.int$site2)
 levels(visium.int$site2)[levels(visium.int$site2)=='Primary']<-'Pri'
@@ -154,7 +161,11 @@ a6 <- SpatialDimPlot(visium.int, images = 'LN3', cols = c("#E8BA5A","#FF725C", "
 ggarrange(a1,a2, a3, a4, a5, a6, nrow = 1, ncol = 6)
 
 
-tiff(filename=paste0(save_path, "MIA_spatialdimplot3.tiff"), 
+# < Save .tiff > ----------
+
+save.path <- # 'write_your_path'
+  
+tiff(filename = paste0(save.path, "MIA_spatialdimplot3.tiff"), 
      width = 330, height = 60, unit = "mm", bg = "transparent", res = 300)
 ggarrange(a1,a2, a3, a4, a5, a6, nrow = 1, ncol = 6)
 dev.off()
