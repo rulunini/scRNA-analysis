@@ -23,7 +23,6 @@ my.celltype <- paste0(my.celltype, '.enrich')
 
 # < Just run the code! > ----------
 
-
 for (i in 1:length(my.visium.lst)){
   
   for (z in 1:length(my.celltype)){
@@ -39,26 +38,10 @@ for (i in 1:length(my.visium.lst)){
   my.visium.lst[[i]]@meta.data[[my.celltype[z]]] <- factor(my.visium.lst[[i]]@meta.data[[my.celltype[z]]])
   Idents(my.visium.lst[[i]]) <- my.celltype[z]
   
-  
   }
 }
 
 
-# If the cluster is under my celltype to "1", or not "0"
-for (i in 1:length(my.visium.lst)){
-  
-  # Create new metadata that include my resolution
-  my.visium.lst[[i]]$my_cluster <- my.visium.lst[[i]]$integrated_snn_res.1 
-  # Set Idents to my resolution
-  Idents(my.visium.lst[[i]]) <- 'my_cluster'
-  
-  for (z in 1:length(my.celltype)){
-      
-      my.visium.lst[[i]]@meta.data[[my.celltype[z]]] <- as.character(my.visium.lst[[i]]$my_cluster)
-      my.visium.lst[[i]]@meta.data[[my.celltype[z]]] <- ifelse(my.visium.lst[[i]]@meta.data[my.celltype[z]][,1] %in% as.character(na.omit(my.df[,1])), "1", "0")
-
-  }
-}
 
 
 # < Save to RData > ----------
