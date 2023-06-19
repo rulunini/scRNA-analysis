@@ -12,13 +12,13 @@ load(paste0(my.path, 'spatial_eightsample_integration.RData'))
 
 visium.int$site2 <- visium.int$site
 visium.int$site2 <- factor(visium.int$site2)
-levels(visium.int$site2)[levels(visium.int$site2)=='Primary']<-'Pri'
-levels(visium.int$site2)[levels(visium.int$site2)=='LymphNode']<-'LN'
+levels(visium.int$site2)[levels(visium.int$site2)=='Primary']<-'PT'
+levels(visium.int$site2)[levels(visium.int$site2)=='LymphNode']<-'LNMT'
 
 visium.int$HPV2 <- visium.int$HPV
 visium.int$HPV2 <- factor(visium.int$HPV2)
-levels(visium.int$HPV2)[levels(visium.int$HPV2)=='Negative']<-'(-)'
-levels(visium.int$HPV2)[levels(visium.int$HPV2)=='Positive']<-'(+)'
+levels(visium.int$HPV2)[levels(visium.int$HPV2)=='Negative']<-'HPV-'
+levels(visium.int$HPV2)[levels(visium.int$HPV2)=='Positive']<-'HPV+'
 
 visium.int$sample2 <- visium.int$sample
 visium.int$sample2 <- factor(visium.int$sample2)
@@ -26,9 +26,8 @@ levels(visium.int$sample2)[levels(visium.int$sample2)=='PT1']<-'1'
 levels(visium.int$sample2)[levels(visium.int$sample2)=='PT2']<-'2'
 levels(visium.int$sample2)[levels(visium.int$sample2)=='PT3']<-'3'
 
-visium.int$label <- paste0(visium.int$site2, visium.int$sample2, visium.int$HPV2)
+visium.int$label <- paste0( visium.int$HPV2, visium.int$site2)
 visium.int$label <- factor(visium.int$label)
-visium.int$label <- factor(visium.int$label, levels = c('LN3(+)','Pri3(+)','LN2(-)','Pri2(-)','LN1(-)', 'Pri1(-)'))
 
 table(visium.int$integrated_snn_res.1)
 table(visium.int$label)
@@ -111,34 +110,34 @@ visium.int$hpv_cluster <- factor(visium.int$hpv_cluster, levels = c('HPV(-)','HP
 Idents(visium.int) <- 'neg_cluster'
 color <- c("#FFB400", "#FF4500","#006400","#3232ff","#d8bfd8" )
 a1 <- SpatialDimPlot(visium.int, images = 'TM1', cols = color, pt.size.factor = 2.5-0.5, stroke = 0.2, alpha = 0.7)+
-  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('Pri1(-)')
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV-PT1')
 a2 <- SpatialDimPlot(visium.int, images = 'LN1', cols = color, pt.size.factor = 2.2-0.5, stroke = 0.2, alpha = 0.7)+
-  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('LN1(-)')
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV-LNMT1')
 a3 <- SpatialDimPlot(visium.int, images = 'TM2', cols = color, pt.size.factor = 2.7-0.5, stroke = 0.2, alpha = 0.7)+
-  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('Pri2(-)')
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV-PT2')
 a4 <- SpatialDimPlot(visium.int, images = 'LN2', cols = color, pt.size.factor = 2.4-0.5, stroke = 0.2, alpha = 0.7)+
-  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('LN2(-)')
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV-LNMT2')
 a5 <- SpatialDimPlot(visium.int, images = 'TM3', cols = c(color[1:3], color[5]), pt.size.factor = 2.6-0.5, alpha = 0.7)+
-  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('Pri3(+)')
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV+PT3')
 a6 <- SpatialDimPlot(visium.int, images = 'LN3', cols = color, pt.size.factor = 2.2-0.5, stroke = 0.2, alpha = 0.7)+
-  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('LN3(+)')
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV+LNMT3')
 a <- ggarrange(a1,a2, a3, a4, a5, a6, nrow = 3, ncol = 2)
 a
 
 Idents(visium.int) <- 'pos_cluster'
-color <- c( "#ff50cf", "#C12Dff","#d8bfd8") #-> ÆÄ¶û, ÇÖÇÎÅ©
+color <- c( "#ff50cf", "#C12Dff","#d8bfd8") #-> ï¿½Ä¶ï¿½, ï¿½ï¿½ï¿½ï¿½Å©
 a1 <- SpatialDimPlot(visium.int, images = 'TM1', cols = color, pt.size.factor = 2.5-0.5, stroke = 0.2, alpha = 0.7)+
-  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('Pri1(-)')
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV-PT1')
 a2 <- SpatialDimPlot(visium.int, images = 'LN1', cols = color, pt.size.factor = 2.2-0.5, stroke = 0.2, alpha = 0.7)+
-  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('LN1(-)')
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV-LNMT1')
 a3 <- SpatialDimPlot(visium.int, images = 'TM2', cols = color, pt.size.factor = 2.7-0.5, stroke = 0.2, alpha = 0.7)+
-  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('Pri2(-)')
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV-PT2')
 a4 <- SpatialDimPlot(visium.int, images = 'LN2', cols = color, pt.size.factor = 2.4-0.5, stroke = 0.2, alpha = 0.7)+
-  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('LN2(-)')
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV-LNMT2')
 a5 <- SpatialDimPlot(visium.int, images = 'TM3', cols = color, pt.size.factor = 2.6-0.5, alpha = 0.7)+
-  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('Pri2(-)')
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV+PT3')
 a6 <- SpatialDimPlot(visium.int, images = 'LN3', cols = color, pt.size.factor = 2.2-0.5, stroke = 0.2, alpha = 0.7)+
-  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('LN3(+)')
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV+LNMT3')
 b <- ggarrange(a1,a2, a3, a4, a5, a6, nrow = 3, ncol = 2)
 b
 
@@ -165,8 +164,8 @@ ggarrange(a1,a2, a3, a4, a5, a6, nrow = 1, ncol = 6)
 
 save.path <- # 'write_your_path'
   
-tiff(filename = paste0(save.path, "MIA_spatialdimplot3.tiff"), 
-     width = 330, height = 60, unit = "mm", bg = "transparent", res = 300)
+  tiff(filename = paste0(save.path, "MIA_spatialdimplot3.tiff"), 
+       width = 330, height = 60, unit = "mm", bg = "transparent", res = 300)
 ggarrange(a1,a2, a3, a4, a5, a6, nrow = 1, ncol = 6)
 dev.off()
 
@@ -175,3 +174,39 @@ dev.off()
 
 # save(visium.int, file = '/home/sohee/analysis/data/HNSCC/mydata/mia/spatial_eightsample_integration_v2.RData')
 # load('/home/sohee/analysis/data/HNSCC/mydata/mia/spatial_eightsample_integration_v2.RData')
+
+
+
+Idents(visium.int) <- 'integrated_snn_res.1'
+
+visium.int$cluster7 <- visium.int$integrated_snn_res.1[visium.int$integrated_snn_res.1%in% c(7)]
+visium.int$cluster7 <- factor(visium.int$cluster7, levels = c(7))
+visium.int$cluster7 <- as.character(visium.int$cluster7)
+visium.int$cluster7[visium.int$cluster7%in%NA] <- 'others'
+visium.int$cluster7 <- factor(visium.int$cluster7, levels = c(7, 'others'))
+visium.int$cluster7 <- factor(visium.int$cluster7)
+
+color = c('#FF00FF', 'white')  
+Idents(visium.int) <- 'cluster7'
+x = 0.7
+a1 <- SpatialDimPlot(visium.int, images = 'TM1', cols = color, pt.size.factor = 2.5-0.5, stroke = 0.2, alpha = x)+
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV-PT1')
+a2 <- SpatialDimPlot(visium.int, images = 'LN1', cols = color, pt.size.factor = 2.2-0.5, stroke = 0.2, alpha = x)+
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV-LNMT1')
+a3 <- SpatialDimPlot(visium.int, images = 'TM2', cols = color, pt.size.factor = 2.7-0.5, stroke = 0.2, alpha = x)+
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV-PT2')
+a4 <- SpatialDimPlot(visium.int, images = 'LN2', cols = color, pt.size.factor = 2.4-0.5, stroke = 0.2, alpha = x)+
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV-LNMT2')
+a5 <- SpatialDimPlot(visium.int, images = 'TM3', cols = c(color[1:3], color[5]), pt.size.factor = 2.6-0.5, alpha = x)+
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV+PT3')
+a6 <- SpatialDimPlot(visium.int, images = 'LN3', cols = color, pt.size.factor = 2.2-0.5, stroke = 0.2, alpha = x)+
+  theme(legend.position = '', legend.title = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle('HPV+LNMT3')
+a <- ggarrange(a1, a3,a5, a2, a4,  a6, nrow = 2, ncol = 3)
+a
+
+save.path = '/home/sohee/analysis/'
+tiff(filename = paste0(save.path, "cluster7.tiff"), 
+     width = 120, height = 100, unit = "mm", bg = "transparent", res = 300)
+a
+dev.off()
+
